@@ -4,8 +4,8 @@ import { withRouter } from 'react-router-dom'
 import { Menu, Icon } from 'antd'
 
 @withRouter
-@inject('menuStore') @observer
-
+@inject('menuStore')
+@observer
 class SideMenu extends React.Component {
     constructor(props) {
         super(props)
@@ -14,41 +14,40 @@ class SideMenu extends React.Component {
         this.state = {
             sideMenu: [],
             openKeys: [],
-            selectedKeys: [],
+            selectedKeys: []
         }
 
         // 临时变量
         this.stack = {
             flag: false,
             openKeys: [],
-            breadNames: [],
+            breadNames: []
         }
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.initMenuData()
     }
 
     // 根据路由siderbar重新渲染
-    shouldComponentUpdate(nextProps) {
-        if (this.props.location.pathname !== nextProps.location.pathname) {
+    componentDidUpdate(prevProps) {
+        if (prevProps.location.pathname !== this.props.location.pathname) {
             this.stack = {
                 flag: false,
                 openKeys: [],
-                breadNames: [],
+                breadNames: []
             }
-            this.initMenuData(nextProps.location.pathname)
+            this.initMenuData()
         }
-        return true
     }
 
     // 选中菜单
-    onMenuClick = (e) => {
+    onMenuClick = e => {
         this.props.history.push(e.key)
     }
 
     // defaultOpenkeys只能初始化一次，openKeys: 返回当前所有打开的keys
-    onOpenChange = (openKeys) => {
+    onOpenChange = openKeys => {
         this.setState({ openKeys })
     }
 
@@ -75,19 +74,25 @@ class SideMenu extends React.Component {
     getChildMenu(item) {
         if (item.children && item.children.length) {
             return (
-                <Menu.SubMenu key={item.path} title={<span><Icon type="folder" />{item.title}</span>}>
-                    {
-                        item.children.map(child => this.getChildMenu(child))
+                <Menu.SubMenu
+                    key={item.path}
+                    title={
+                        <span>
+                            <Icon type="folder" />
+                            {item.title}
+                        </span>
                     }
+                >
+                    {item.children.map(child => this.getChildMenu(child))}
                 </Menu.SubMenu>
             )
         }
-        return (<Menu.Item key={item.path.replace(/\/:\w+\??$/, '')}>{item.title}</Menu.Item>)
+        return <Menu.Item key={item.path.replace(/\/:\w+\??$/, '')}>{item.title}</Menu.Item>
     }
 
     // 根据当前路径初始化sidebar菜单数据
-    initMenuData(path) {
-        const curPath = path || this.props.location.pathname
+    initMenuData() {
+        const curPath = this.props.location.pathname
 
         // 根据当前路由获取一级菜单
         const regResult = /(\/\w+)\//.exec(curPath)
@@ -101,9 +106,10 @@ class SideMenu extends React.Component {
                 sideMenu = item.children
                 return true
             }
+            return false
         })
 
-        sideMenu.some((item) => {
+        sideMenu.some(item => {
             if (this.stack.flag) {
                 return true
             }
@@ -122,10 +128,14 @@ class SideMenu extends React.Component {
 
     render() {
         return (
-            <Menu openKeys={this.state.openKeys} selectedKeys={this.state.selectedKeys} mode="inline" onClick={this.onMenuClick} onOpenChange={this.onOpenChange}>
-                {
-                    this.state.sideMenu.map(item => this.getChildMenu(item))
-                }
+            <Menu
+                openKeys={this.state.openKeys}
+                selectedKeys={this.state.selectedKeys}
+                mode="inline"
+                onClick={this.onMenuClick}
+                onOpenChange={this.onOpenChange}
+            >
+                {this.state.sideMenu.map(item => this.getChildMenu(item))}
             </Menu>
         )
     }

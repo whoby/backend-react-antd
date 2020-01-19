@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import ajax from 'libs/ajax'
+import ajax from '@/libs/ajax'
 import Search from './search'
 import Add from './add'
 import Grid from './grid'
-
 
 class Index extends Component {
     state = {
@@ -11,12 +10,10 @@ class Index extends Component {
         searchData: {}
     }
 
-    componentWillMount() {
-        this.mounted = true
-    }
-
     componentDidMount() {
-        ajax.post('/user/card/type', {}, (res) => {
+        this.mounted = true
+
+        ajax.post('/user/card/type', {}, res => {
             if (this.mounted) {
                 this.setState({
                     cardType: res
@@ -29,7 +26,7 @@ class Index extends Component {
         this.mounted = false
     }
 
-    onSearchChange = (data) => {
+    onSearchChange = data => {
         if (this.mounted) {
             this.setState({ searchData: data })
         }

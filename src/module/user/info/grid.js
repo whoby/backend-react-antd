@@ -1,24 +1,28 @@
 import React, { Component } from 'react'
 import { Table } from 'antd'
-import { pageProps } from 'config/global'
-import ajax from 'libs/ajax'
+import { pageProps } from '@/config/global'
+import ajax from '@/libs/ajax'
 
 class Grid extends Component {
     constructor(props) {
         super(props)
 
         this.gridProps = {
-            columns: [{
-                title: '姓名',
-                dataIndex: 'nickName'
-            }, {
-                title: '手机号',
-                dataIndex: 'telephone'
-            }, {
-                title: '注册时间',
-                dataIndex: 'registerTime'
-            }],
-            rowKey: 'id',
+            columns: [
+                {
+                    title: '姓名',
+                    dataIndex: 'nickName'
+                },
+                {
+                    title: '手机号',
+                    dataIndex: 'telephone'
+                },
+                {
+                    title: '注册时间',
+                    dataIndex: 'registerTime'
+                }
+            ],
+            rowKey: 'id'
         }
 
         this.state = {
@@ -26,7 +30,7 @@ class Grid extends Component {
             pagination: {
                 ...pageProps
             },
-            loading: false,
+            loading: false
         }
     }
 
@@ -35,9 +39,9 @@ class Grid extends Component {
     }
 
     // 响应search组件传参
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.searchData !== this.props.searchData) {
-            this.initGridData(nextProps.searchData)
+    componentDidUpdate(prevProps) {
+        if (prevProps.searchData !== this.props.searchData) {
+            this.initGridData(this.props.searchData)
         }
     }
 
@@ -46,7 +50,7 @@ class Grid extends Component {
     }
 
     // 分页事件
-    onPageChange = (pagination) => {
+    onPageChange = pagination => {
         this.setState({ pagination }, () => {
             this.initGridData()
         })
@@ -65,12 +69,12 @@ class Grid extends Component {
             params.currentPage = 1
         }
 
-        ajax.post('/user/info/list', params, (res) => {
+        ajax.post('/user/info/list', params, res => {
             if (this.mounted) {
                 pagination.total = ~~res.total
                 this.setState({
                     gridData: res.list,
-                    pagination,
+                    pagination
                 })
             }
         })
@@ -79,7 +83,13 @@ class Grid extends Component {
     render() {
         return (
             <div>
-                <Table {...this.gridProps} dataSource={this.state.gridData} pagination={this.state.pagination} loading={this.state.loading} onChange={this.onPageChange} />
+                <Table
+                    {...this.gridProps}
+                    dataSource={this.state.gridData}
+                    pagination={this.state.pagination}
+                    loading={this.state.loading}
+                    onChange={this.onPageChange}
+                />
             </div>
         )
     }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Form, Row, Col, Input, Button } from 'antd'
-import { formItemLayout } from 'config/global'
-import util from 'libs/util'
+import { formItemLayout } from '@/config/global'
+import util from '@/libs/util'
 
 const FormItem = Form.Item
 
@@ -10,7 +10,7 @@ class Search extends Component {
         this.onSearch()
     }
 
-    onSearch = (e) => {
+    onSearch = e => {
         // eslint-disable-next-line
         e && e.preventDefault()
 
@@ -40,7 +40,9 @@ class Search extends Component {
                     </Col>
                     <Col span={2}>
                         <FormItem>
-                            <Button type="primary" icon="search" htmlType="submit">查询</Button>
+                            <Button type="primary" icon="search" htmlType="submit">
+                                查询
+                            </Button>
                         </FormItem>
                     </Col>
                 </Row>

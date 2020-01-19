@@ -7,6 +7,7 @@ class MenuStore {
 
     constructor() {
         this.menu = []
+        this.breadNames = []
     }
 
     @action.bound

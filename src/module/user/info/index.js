@@ -7,20 +7,8 @@ class Index extends Component {
         searchData: {}
     }
 
-    componentWillMount() {
-        this.mounted = true
-    }
-
-    componentDidMount() {}
-
-    componentWillUnmount() {
-        this.mounted = false
-    }
-
-    onSearchChange = (data) => {
-        if (this.mounted) {
-            this.setState({ searchData: data })
-        }
+    onSearchChange = data => {
+        this.setState({ searchData: data })
     }
 
     render() {

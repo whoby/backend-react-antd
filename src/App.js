@@ -1,35 +1,33 @@
 import React from 'react'
-import { LocaleProvider } from 'antd'
+import { ConfigProvider } from 'antd'
 import zhCN from 'antd/lib/locale-provider/zh_CN'
-import Headbar from 'module/common/headbar'
-import Sidebar from 'module/common/sidebar'
-import Breadcrumb from 'module/common/breadcrumb'
+import Headbar from '@/module/common/headbar'
+import Sidebar from '@/module/common/sidebar'
+import Breadcrumb from '@/module/common/breadcrumb'
 
-const App = (route) => (
-    <LocaleProvider locale={zhCN}>
+const App = route => (
+    <ConfigProvider locale={zhCN}>
         <div style={styles.app}>
             <Headbar />
             <div style={styles.content}>
-                {
-                    route.location.pathname === '/index' ? route.children : (
-                        <div>
-                            <aside style={styles.aside}>
-                                <Sidebar />
-                            </aside>
-                            <div style={styles.main}>
-                                <div style={styles.breadcrumb}>
-                                    <Breadcrumb />
-                                </div>
-                                <div style={styles.mainContent}>
-                                    {route.children}
-                                </div>
+                {route.location.pathname === '/index' ? (
+                    route.children
+                ) : (
+                    <div>
+                        <aside style={styles.aside}>
+                            <Sidebar />
+                        </aside>
+                        <div style={styles.main}>
+                            <div style={styles.breadcrumb}>
+                                <Breadcrumb />
                             </div>
+                            <div style={styles.mainContent}>{route.children}</div>
                         </div>
-                    )
-                }
+                    </div>
+                )}
             </div>
         </div>
-    </LocaleProvider>
+    </ConfigProvider>
 )
 
 export default App
@@ -41,7 +39,7 @@ const styles = {
     content: {
         marginTop: 60,
         padding: 0,
-        width: '100%',
+        width: '100%'
     },
     aside: {
         position: 'fixed',
@@ -53,13 +51,13 @@ const styles = {
         overflowX: 'hidden',
         color: '#333',
         zIndex: '999',
-        borderRight: '1px solid #ddd',
+        borderRight: '1px solid #ddd'
     },
     main: {
         padding: 20,
         backgroundColor: '#fff',
         width: '88%',
-        marginLeft: '12%',
+        marginLeft: '12%'
     },
     breadcrumb: {
         padding: '8px 15px',
@@ -67,7 +65,7 @@ const styles = {
         listStyle: 'none',
         backgroundColor: '#f5f5f5',
         borderRadius: 4,
-        fontSize: 14,
+        fontSize: 14
     },
     mainContent: {
         padding: '0 20px 20px'
