@@ -11,7 +11,7 @@
     },
     "dependencies": {
         "antd": "^3.26.7",
-        "axios": "^0.19.1",
+        "axios": "^0.21.1",
         "history": "^4.10.1",
         "mobx": "^5.15.2",
         "mobx-react": "^6.1.5",
