@@ -1,0 +1,30 @@
+{
+    "parser": "babel-eslint",
+    "extends": ["plugin:react/recommended"],
+    "plugins": ["react", "react-hooks"],
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "env": {
+        "browser": true,
+        "node": true
+    },
+    "globals": {
+        "window": true
+    },
+    "rules": {
+        "jsx-a11y/anchor-is-valid": 0,
+        "react/display-name": 0, // 组件显示名字校验
+        "react/prop-types": 0, // 防止在React组件定义中丢失props验证
+        "react-hooks/rules-of-hooks": "error", // 检查Hook的规则
+        "react-hooks/exhaustive-deps": "warn" // 检查effect的依赖
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    }
+}
