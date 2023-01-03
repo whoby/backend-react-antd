@@ -36,11 +36,11 @@
         "http-proxy-middleware": "^0.20.0",
         "husky": "^4.0.10",
         "less": "^3.10.3",
-        "less-loader": "^5.0.0",
+        "less-loader": "^11.1.0",
         "lint-staged": "^9.5.0",
         "node-sass": "^4.14.1",
         "react-app-rewired": "^2.1.5",
-        "react-scripts": "^3.3.0",
+        "react-scripts": "^5.0.1",
         "standard-changelog": "^2.0.21"
     },
     "config": {
